@@ -1,0 +1,65 @@
+<div class="container">
+  <h2>Información Usuario </h2>
+
+
+  <div class="grid">
+
+    <div class="col-fixed" style="width: 40rem;" *ngIf="userForm">
+      <form [formGroup]="userForm" (submit)="onFormSubmit()">
+
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Nombre</label>
+          <div class="col-sm-10">
+            <input type="text" name="name" formControlName="name" class="form-control" />
+            <small class="text-danger"
+              *ngIf="userForm.get('name')?.dirty && userForm.get('name')?.hasError('required')">
+              Campo Requerido.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" name="email" formControlName="email" class="form-control" />
+            <small class="text-danger"
+              *ngIf="userForm.get('email')?.dirty &&  userForm.get('email')?.hasError('required')">
+              Campo Requerido.
+            </small>
+            <small class="text-danger" *ngIf="userForm.get('email')?.dirty && userForm.get('email')?.hasError('email')">
+              Este campo debe ser tipo Email.
+            </small>
+          </div>
+        </div>
+
+
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Contraseña</label>
+            <div class="col-sm-10">
+              <input type="password" name="password" formControlName="password" class="form-control" />
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Rol</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="roles" [(ngModel)]="selectedRole" formControlName="role"></p-dropdown>
+            </div>
+          </div>
+
+          
+
+          <button pButton type="submit" icon="pi pi-send" label="Listo" class="mt-3"
+            [disabled]="userForm.invalid"></button>
+
+       
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+

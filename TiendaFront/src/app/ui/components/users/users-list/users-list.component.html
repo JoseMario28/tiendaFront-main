@@ -1,0 +1,41 @@
+<div class="catsandstars">
+
+  <div class="flex align-items-center gap mb-3">
+    <button *appIsAdmin="true" pButton pRipple type="button" icon="pi pi-plus" label="Nuevo"
+      class=" p-button-secondary" routerLink="/users/form/create"></button>
+    <h1 class="text-xl font-bold ml-6 text-light bg-dark">Lista Usuarios:</h1>
+  </div>
+  <p-table [value]="$any(users)?.content" responsiveLayout="scroll" >
+
+    <ng-template pTemplate="header" >
+      <tr>
+        <th></th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Contraseña</th>
+        <th>Rol</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr dir-paginate="user in users|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+        <th scope="row" ng-click="sort('id')">
+          <a class="psss" [routerLink]="['/users', user.id]">{{ user.id }}</a>
+        </th>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.role }}</td>
+        <td class="">
+          <div class="button-links-bar" *appIsEditor="true">
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info"
+              [routerLink]="['/users/form/update', user.id]"></button>
+            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+              (click)="deleteUser(user)"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator [rows]="10" [totalRecords]="$any(users)?.totalElements" (onPageChange)="hola($event.page)"></p-paginator>
+</div>

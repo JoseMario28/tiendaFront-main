@@ -1,0 +1,10 @@
+<p-button styleClass="p-button-secondary" icon="pi pi-chevron-left" label="Volver"[routerLink]="['/users']"></p-button>
+<div class="container">
+    <ul class="list-group" *ngIf="user">
+      <li class="list-group-item"><strong>ID:</strong> {{ user.id }} </li>
+      <li class="list-group-item"><strong>Nombre:</strong> {{ user.name }} </li>
+      <li class="list-group-item"><strong>Email:</strong> {{ user.email }} </li>
+      <li class="list-group-item"><strong>Contraseña:</strong> {{ user.password }} </li>
+    </ul>
+  
+  </div>

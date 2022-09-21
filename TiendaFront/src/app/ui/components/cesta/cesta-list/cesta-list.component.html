@@ -1,0 +1,55 @@
+
+<div  class="catsandstars" >
+
+    <div class="flex align-items-center gap mb-3">
+        <h1 class="text-xl font-bold ml-6 text-light bg-dark">Productos Cesta:</h1>
+    </div>
+
+    <p-table [value]="productos" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <th scope="row">
+                    <a class="psss" [routerLink]="['/productos', producto.id]">{{ producto.id }}</a>
+                </th>
+                <td>{{ producto.name }}</td>
+                <td>{{ producto.cuantity }}</td>
+                <td>{{ producto.price}}</td>
+
+
+                <td >
+                    <div class="button-links-bar">
+                        <input type="number" name="cantDelete" id="cantDelete" value="1" 
+                            min="1" max="{{ producto.cuantity }}" style="width:55px" #cantEliminar>
+                        <button pButton type="button" icon="pi pi-trash"
+                            class="p-button-rounded p-button-text p-button-danger" (click)="deleteFromBasket(producto, cantEliminar.value)" ></button>
+                    </div>
+                </td>
+            </tr>
+         
+        </ng-template>
+        
+    </p-table>
+
+
+   
+
+    <div *ngIf="this.productos.length >0"  class="d-flex justify-content-between align-items-center">
+        <button pButton pRipple type="button" label="Vaciar cesta" class=" p-button-raised p-button-danger" icon="pi pi-trash"(click)="vaciarCesta()"></button>
+
+        <button pButton pRipple type="button" icon="pi pi-shopping-cart" label="Siguiente" class=" p-button-rounded p-button-success"
+        routerLink="/cliente" ></button>
+        <label class="text-xl font-weight-bold ml-9 text-light bg-dark " >Precio total: {{precioTotal}} €</label>
+    </div>
+
+    <p-paginator [rows]="10" [totalRecords]="$any(productos)?.totalElements" (onPageChange)="paginator($event.page)"></p-paginator>
+</div>

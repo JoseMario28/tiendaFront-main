@@ -1,0 +1,52 @@
+@use 'variables' as v;
+
+header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+
+  .p-menubar {
+    border-radius: 0;
+  }
+}
+
+main {
+  margin-top: 100px;
+}
+
+.button-links-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+
+  .p-button {
+    padding: 0;
+    &.p-button-icon-only {
+      width: 1.5rem;
+    }
+  }
+}
+
+.p-button {
+  padding: 0.5rem 1rem;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  padding: 0.75rem 0;
+}
+
+.text-info {
+  color: v.$blueColor;
+}
+
+.text-success {
+  color: v.$greenColor;
+}
+
+.text-danger {
+  color: v.$redColor;
+}

@@ -1,0 +1,16 @@
+<header>
+
+    <p-menubar [model]="menuItems"  >
+      <ng-template pTemplate="start">
+          <img src="assets/images/primeng.svg" height="60" class="mr-2">
+      </ng-template>
+      <ng-template pTemplate="end" >
+        <div class="flex"  >
+          <!-- <input type="text" class="form-control mr-3" pInputText placeholder="Buscar"> -->
+          <button *appIsAuth="true"  pButton type="button"   icon="pi pi-power-off" class="p-button-danger p-button-rounded p-button-text p-button-plain p-button-sm" (click)="disconnect()"></button>
+        </div>
+        </ng-template>
+    </p-menubar>
+ 
+  </header>
+

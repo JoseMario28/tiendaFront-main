@@ -1,0 +1,18 @@
+  <div class="catsandstars">
+  <div class="loginmodal-container">
+      <h1>Login</h1><br>
+      <form [formGroup]="formLogin" (ngSubmit)="onFormSubmit()" >
+        <input type="text" name="user" placeholder="Username" formControlName="username">
+        <input type="password" name="pass" placeholder="Password" formControlName="password">
+        <!-- <input type="submit" name="login" class="login loginmodal-submit" value="login" [disabled]="formLogin.invalid" (click)="onFormSubmit()"> -->
+        <button pButton type="submit" icon="pi pi-send"  (click)="onFormSubmit()">Login</button>
+
+      </form>
+     
+    <div class="login-help">
+<a href="#">register</a> -<a href="#">forgot password</a>
+    </div>
+    
+   
+  </div>
+</div>

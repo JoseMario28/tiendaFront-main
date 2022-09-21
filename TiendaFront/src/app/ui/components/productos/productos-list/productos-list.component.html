@@ -1,0 +1,132 @@
+<div class="catsandstars ">
+    <div class="flex align-items-center gap mb-3">
+        <button *appIsAdmin="true" pButton pRipple type="button" icon="pi pi-plus" label="Nuevo"
+            class=" p-button-secondary" routerLink="/productos/form/create"></button>
+
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-sm-10">
+            <p-dropdown id="dropdown" [options]="$any(categorias)?.content" [(ngModel)]="selectedCategory"
+                placeholder="Selecciona una categoria" optionLabel="name" [showClear]="true" (onClear)="onClear()"
+                (onChange)="filtrar(selectedCategory.name,$event)" #dropDownThing></p-dropdown>
+            <span>
+                <input type="text" pInputText placeholder="Search" [(ngModel)]="productoBuscar" (keyup)="buscarProducto()" />
+            </span>
+        </div>
+        <h1 class="text-xl font-bold ml-6 text-light bg-dark">Lista Productos:</h1>
+
+    </div>
+
+
+    <p-table [value]="productosTodos" [paginator]="true" [rows]="10">
+
+
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th></th>
+                <th pSortableColumn="name">Nombre<p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="price">Precio <p-sortIcon field="price"></p-sortIcon>
+                </th>
+                <th pSortableColumn="inStock">Stock <p-sortIcon field="inStock"></p-sortIcon>
+                </th>
+                <th pSortableColumn="category.name">Categoria <p-sortIcon field="category.name"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto let-sort="sortFn">
+
+            <tr>
+                <th scope="row">
+                    <a class="psss" [routerLink]="['/productos', producto.id]">{{ producto.id }}</a>
+                </th>
+                <td>{{ producto.name }}</td>
+                <td>{{ producto.price }}</td>
+                <td>{{ producto.inStock }}</td>
+                <td>{{ producto.category.name }}</td>
+                <td>
+                    <div class="button-links-bar">
+                        <button pButton type="button" icon="pi pi-pencil"
+                            class="p-button-rounded p-button-text p-button-info"
+                            [routerLink]="['/productos/form/update', producto.id]" *appIsAuth="true"></button>
+                        <button pButton type="button" icon="pi pi-trash"
+                            class="p-button-rounded p-button-text p-button-danger" *appIsAdmin="true"
+                            (click)="deleteProducto(producto)"></button>
+                        <input type="number" name="cantDelete" id="cantDelete" value="1" min="1"
+                            max="{{ producto.inStock }}" style="width:55px" #cantAdd>
+                        <button *ngIf="producto.inStock>0" pButton type="button" icon="pi pi-shopping-cart"
+                            class="p-button-rounded p-button-text p-button-danger"
+                            (click)="addProduct(producto, cantAdd.value)"></button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+    <p-dataView #dv [value]="productos" [paginator]="true" [rows]="9" filterBy="name" layout="grid">
+        <ng-template pTemplate="header">
+            <div class="flex flex-column md:flex-row md:justify-content-between">
+
+                <span class="p-input-icon-left mb-2 md:mb-0">
+                    <i class="pi pi-search"></i>
+                </span>
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+        </ng-template>
+        <ng-template let-product pTemplate="listItem">
+            <div class="col-12">
+                <div class="product-list-item">
+                    <img [src]="product.image" [alt]="product.image" />
+                    <div class="product-list-detail">
+                        <div class="product-name">{{product.name}}</div>
+                        <!-- <div class="product-description">{{product.inStock}}</div> -->
+                        <i class="pi pi-tag product-category-icon"></i><span
+                            class="product-category">{{product.category.name}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <span class="product-price">${{product.price}}</span>
+                        <p-button icon="pi pi-shopping-cart" label="Add to Cart"></p-button>
+                        <span [class]="'product-badge status-' + product.name.toLowerCase()">{{product.inStock}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-product pTemplate="gridItem">
+            <div class="col-12 col-md-4">
+                <div class="product-grid-item card">
+                    <div class="product-grid-item-top">
+                        <div>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{product.category.name}}</span>
+                        </div>
+                        <span [class]="'product-badge status-' + product.name.toLowerCase()">{{product.inStock}}</span>
+                    </div>
+                    <div class="product-grid-item-content">
+                        <img [src]="product.image" [alt]="product.image" />
+                        <div class="product-name">{{product.name}}</div>
+                        <!-- <div class="product-description">{{product.inStock}}</div> -->
+                    </div>
+                    <div class="product-grid-item-bottom">
+                        <span class="product-price">${{product.price}}</span>
+                        <p-button icon="pi pi-shopping-cart"></p-button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>

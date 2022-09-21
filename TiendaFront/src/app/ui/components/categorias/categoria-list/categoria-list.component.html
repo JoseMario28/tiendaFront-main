@@ -1,0 +1,43 @@
+
+<div class="catsandstars " >
+
+    <div class="flex align-items-center gap mb-3">
+        <button  *appIsAuth="true" pButton pRipple type="button" icon="pi pi-plus" label="Nuevo" class="p-button-secondary"
+            routerLink="/categorias/form/create" ></button>
+        
+        <h1 class="text-xl font-bold ml-6 text-light bg-dark">Lista categorias:</h1>
+    </div>
+
+    <p-table   [value]="$any(categorias)?.content" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-categoria>
+            <tr>
+                <th scope="row">
+                    <p class="psss">{{ categoria.id }}</p>
+                </th>
+                <td>{{ categoria.name }}</td>
+                <td class="">
+                    <div class="button-links-bar">
+                        <button *appIsAuth="true" pButton type="button" icon="pi pi-pencil"
+                            class="p-button-rounded p-button-text p-button-info"
+                            [routerLink]="['/categorias/form/update', categoria.id]"></button>
+
+
+                        <button  *appIsAuth="true" pButton type="button" icon="pi pi-trash"
+
+
+                            class="p-button-rounded p-button-text p-button-danger" (click)="deleteCategoria(categoria)"></button>
+                        
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator [rows]="10" [totalRecords]="$any(categorias)?.totalElements" (onPageChange)="paginator($event.page)"></p-paginator>
+</div>
